@@ -7,7 +7,7 @@ bash scripts/build_and_push_image.sh -f ${DOCKERFILE_FOLDER} -n ${IMGAE_NAME} -t
 
 ## Build And Push
 ```shell
-bash scripts/build_and_push_image.sh -f jenkins-agent -n jenkins-agent -t 1.0.0 -p ${DOCKER_REGISTRY_PW}
+bash scripts/build_and_push_image.sh -f . -n jenkins-agent -t 1.0.0 -p ${DOCKER_REGISTRY_PW}
 ```
 
 ## Mark It Public In Dockerhub
