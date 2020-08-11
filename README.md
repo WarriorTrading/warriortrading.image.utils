@@ -8,7 +8,13 @@ bash scripts/build_and_push_image.sh -f ${DOCKERFILE_FOLDER} -n ${IMGAE_NAME} -t
 ## Build And Push
 ```shell
 bash scripts/build_and_push_image.sh -f . -n jenkins-agent -t 1.0.0 -p ${DOCKER_REGISTRY_PW}
+
+# test it
+docker run  --privileged --name jenkins-agent warriortrading/jenkins-agent:1.0.0
 ```
 
 ## Mark It Public In Dockerhub
 https://hub.docker.com/repository/docker/warriortrading/jenkins-agent/settings
+
+
+
