@@ -5,7 +5,7 @@ set -e
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # define default values
-DEFAULT_IMAGE_TAG=1.0.0
+DEFAULT_IMAGE_TAG="DEV-0"
 DEFAULT_DOCKER_REGISTRY_USER=warriortrading
 
 # set default values of parameters

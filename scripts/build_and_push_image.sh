@@ -5,9 +5,11 @@ set -e
 
 #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 # define default values
-DEFAULT_IMAGE_TAG=1.0.0
+DEFAULT_IMAGE_TAG="DEV-0"
 DEFAULT_DOCKER_REGISTRY_USER=warriortrading
 DEFAULT_BUILD_ARGS=
+DEFAULT_BRANCH_IMAGE_LIMIT=69
+DEFAULT_BRANCH_LIMIT=9
 
 # set default values of parameters
 IMAGE_TAG=$DEFAULT_IMAGE_TAG
@@ -75,6 +77,27 @@ echo ""
 
 SHELL_FOLDER=$(cd `dirname -- $0` && pwd)
 
+#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# check the limit of the tags and remove older ones.
+if [[ $IMAGE_TAG != *"-"* ]]; then
+  echo "Tag name should be an uppercase branch name joined a version number by '-'"
+  exit 1
+fi
+# get branch
+tag_arr=(${IMAGE_TAG//\-/ })
+branch="${tag_arr[0]}"
+# get limit number
+limit=$DEFAULT_BRANCH_LIMIT
+if [ $branch == "IMAGE" ]; then
+  limit=$DEFAULT_BRANCH_IMAGE_LIMIT
+fi
+
+# remove old image tags
+LIMIT_ARGS="-g $DOCKER_REGISTRY_USER -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PW -r $IMAGE_NAME -b $branch -l $limit"
+echo "LIMIT_ARGS=$LIMIT_ARGS"
+if [ $IMAGE_NAME != "jenkins-agent" ]; then
+    bash $SHELL_FOLDER/remove_proceed_limit_images.sh $LIMIT_ARGS
+fi
 
 BUILD_IMAGES_ARGS="-f $FOLDER -n $IMAGE_NAME -t $IMAGE_TAG -u $DOCKER_REGISTRY_USER -p $DOCKER_REGISTRY_PW"
 if [ ! -z "$BUILD_ARGS" ]; then
