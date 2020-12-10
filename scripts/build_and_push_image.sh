@@ -9,7 +9,8 @@ DEFAULT_IMAGE_TAG="DEV-0"
 DEFAULT_DOCKER_REGISTRY_USER=warriortrading
 DEFAULT_BUILD_ARGS=
 DEFAULT_BRANCH_IMAGE_LIMIT=69
-DEFAULT_BRANCH_LIMIT=9
+DEFAULT_BRANCH_DEV_LIMIT=24
+DEFAULT_BRANCH_LIMIT=4
 
 # set default values of parameters
 IMAGE_TAG=$DEFAULT_IMAGE_TAG
@@ -90,6 +91,8 @@ branch="${tag_arr[0]}"
 limit=$DEFAULT_BRANCH_LIMIT
 if [ $branch == "IMAGE" ]; then
   limit=$DEFAULT_BRANCH_IMAGE_LIMIT
+elif [ $branch == "DEV" ]; then
+  limit=$DEFAULT_BRANCH_DEV_LIMIT
 fi
 
 # remove old image tags
