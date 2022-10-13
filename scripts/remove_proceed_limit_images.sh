@@ -59,7 +59,7 @@ if [ $NUM_REMOVE -le 0 ]; then
   exit 0
 fi
 
-REMOVE_TAGS=$(echo $BRANCH_TAGS | jq 'map(split("-")[1] | tonumber)' | jq 'sort | .[]' | head -n $NUM_REMOVE)
+REMOVE_TAGS=$(echo $BRANCH_TAGS | jq 'map(split("-")[-1] | tonumber)' | jq 'sort | .[]' | head -n $NUM_REMOVE)
 echo "Version numbers on branch ${DOCKER_HUB_BRANCH} to be removed: $REMOVE_TAGS"
 
 for i in $REMOVE_TAGS; do 
