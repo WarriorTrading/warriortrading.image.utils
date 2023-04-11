@@ -1,4 +1,4 @@
-FROM docker:dind
+FROM docker:20-dind
 
 # install bash
 RUN apk add --no-cache ca-certificates bash
