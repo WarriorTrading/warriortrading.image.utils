@@ -40,7 +40,7 @@ TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'$
 
 # get tags for repo
 RES_TAGS=$(curl -s -H "Authorization: JWT ${TOKEN}" https://${HUB_DOMAIN}/v2/repositories/${DOCKER_HUB_ORG}/${DOCKER_HUB_REPO}/tags/?page_size=10000 | jq -r '.results')
-if [ $RES_TAGS = "null" ]; then
+if [ "$RES_TAGS" = "null" ]; then
   echo "[Info] There are no image of repo ${DOCKER_HUB_REPO}. No need to issue removing."
   echo ""
   exit 0
