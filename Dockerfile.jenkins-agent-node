@@ -1,0 +1,40 @@
+FROM node:20-bullseye-slim
+
+# copy scripts
+RUN mkdir /scripts 
+COPY ./scripts/* /scripts/
+
+# Install required packages
+RUN apt-get update && \
+    apt-get install -y \
+    curl \
+    git \
+    jq \
+    python3 \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# Set up node user
+ENV SHELL=/bin/bash
+USER node
+WORKDIR /home/node/agent
+
+# Configure npm to use user's home directory for global packages
+RUN mkdir -p /home/node/agent/.npm-global && \
+    npm config set prefix /home/node/agent/.npm-global
+
+ENV PATH="/home/node/agent/.npm-global/bin:${PATH}"
+
+# Verify installations
+RUN node --version
+
+# Build command:
+# docker build -t warriortrading/jenkins-agent-node:IMAGE-4 -f Dockerfile.jenkins-agent-node .
+
+# Run on local machine command:
+# docker run -it warriortrading/jenkins-agent-node:IMAGE-4 /bin/bash
+
+# Push command: (need to login to docker hub first)
+# docker buildx build --platform linux/amd64 -t warriortrading/jenkins-agent-node:IMAGE-4 -f Dockerfile.jenkins-agent-node .
+# docker push warriortrading/jenkins-agent-node:IMAGE-4
