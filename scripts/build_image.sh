@@ -103,7 +103,7 @@ if [ ! -z "$DOCKER_REGISTRY_PW" ]; then
     docker login --username $DOCKER_REGISTRY_USER --password $DOCKER_REGISTRY_PW
 fi
 
-docker build $BUILD_ARGS_FINAL -t $image $DOCKERFILE_ARG $FOLDER
+docker build --platform linux/amd64 $BUILD_ARGS_FINAL -t $image $DOCKERFILE_ARG $FOLDER
 
 if [ ! -z "$DOCKER_REGISTRY_PW" ]; then
     echo "->: will logout dockerhub after build this image"
