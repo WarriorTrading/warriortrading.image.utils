@@ -59,8 +59,8 @@ git tag -a ${TAG} -m "auto-generated tag"
 # deletes tag on remote in order not to fail pushing the new one
 git push origin :refs/tags/${TAG}
 
-# push tag
-git push --tags
+# push only the tag we just created (not all local tags from fetch)
+git push origin refs/tags/${TAG}
 
 #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
